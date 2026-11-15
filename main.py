@@ -1059,7 +1059,45 @@ async def setlevel_cmd(i: discord.Interaction, member: discord.Member, level: ap
     u["level"] = level
     u["xp"] = 0
     await sync_level_roles(member, level)
-    await rep(i, embed=emb(f"Level dial {member.mention} daba **{level}**"), ephemeral=True)
+await rep(i, embed=emb(f"Level dial {member.mention} daba **{level}**"), ephemeral=True)
+@bot.tree.command(name="voice_setup", description="7ded room dial sot li ib9a fih l bot 24/24")
+@app_commands.default_permissions(administrator=True)
+@safe(eph=True, perm="administrator")
+async def voice_setup_cmd(i: discord.Interaction, channel: discord.VoiceChannel, mode: Literal['on', 'off'] = 'on'):
+    cfg["voice_channel"] = channel.id
+    cfg["voice_247"] = (mode == 'on')
+    if mode == 'on':
+        await join_voice_247(i.guild)
+        await rep(i, embed=emb(f"Bot daba ghadi ib9a f **{channel.mention}** 24/24"), ephemeral=True)
+    else:
+        if i.guild.voice_client:
+            await i.guild.voice_client.disconnect()
+        await rep(i, embed=emb(f"Mode 24/24 tfa, bot khrej mn sot."), ephemeral=True)
+
+@bot.tree.command(name="join", description="Dkhel l bot l room dial sot dialk")
+@safe(eph=True)
+async def join_cmd(i: discord.Interaction):
+    if not i.user.voice or not i.user.voice.channel:
+        return await fail(i, "Dkhel l chi room dial sot lwl 3ad 3ayt l bot.")
+    ch = i.user.voice.channel
+    try:
+        if i.guild.voice_client and i.guild.voice_client.is_connected():
+            await i.guild.voice_client.move_to(ch)
+        else:
+            await ch.connect(self_deaf=True, self_mute=False)
+        await rep(i, embed=emb(f"Dkhlt l **{ch.name}**"), ephemeral=True)
+    except Exception as ex:
+        await fail(i, f"Ma9dertch ndkhol: {ex}")
+
+@bot.tree.command(name="leave", description="Khrej l bot mn sot")
+@safe(eph=True)
+async def leave_cmd(i: discord.Interaction):
+    cfg["voice_247"] = False
+    if i.guild.voice_client:
+        await i.guild.voice_client.disconnect()
+        await rep(i, embed=emb("Khrjt mn sot."), ephemeral=True)
+    else:
+        await fail(i, "Ma kanch f sot.")
 
 TOKEN = os.getenv("TOKEN")
 if not TOKEN:
