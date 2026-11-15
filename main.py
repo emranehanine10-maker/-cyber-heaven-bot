@@ -1,5 +1,5 @@
 # ============================================================
-# CYBER HEAVEN - 【entity-Discord¦canonical_name=discord】 Bot - RAILWAY VERSION
+# CYBER HEAVEN - Discord Bot
 # ============================================================
 import asyncio
 import functools
@@ -12,8 +12,8 @@ from datetime import datetime, timedelta, timezone
 from typing import Literal, Optional
 
 import discord
-from 【entity-discord¦canonical_name=discord】 import app_commands
-from 【entity-discord¦canonical_name=discord】.ext import commands
+from discord import app_commands
+from discord.ext import commands
 
 # ------------------------------------------------------------
 # CONFIG
