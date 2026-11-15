@@ -11,7 +11,7 @@ from collections import Counter, defaultdict, deque
 from datetime import datetime, timedelta, timezone
 from typing import Literal, Optional
 
-import 【entity-discord¦canonical_name=discord】
+import discord
 from 【entity-discord¦canonical_name=discord】 import app_commands
 from 【entity-discord¦canonical_name=discord】.ext import commands
 
